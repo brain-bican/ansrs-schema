@@ -1,0 +1,112 @@
+// An anatomical annotation set is a versioned release of a set of anatomical annotations anchored  in the same anatomical space that divides the space into distinct segments following some annotation  criteria or parcellation scheme. For example, the anatomical annotation set of 3D image based  reference atlases (e.g. Allen Mouse CCF) can be expressed as a set of label indices of single  multi-valued image annotations or as a set of segmentation masks (ref: ILX:0777108, RRID:SCR_023499)
+message AnatomicalAnnotationSet
+ {
+  uriorcurie id = 0
+  string name = 0
+  string description = 0
+  string version = 0
+  anatomicalSpace parameterizes = 0
+  parcellationTerminology revisionOf = 0
+ }
+// An anatomical space is versioned release of a mathematical space with a defined mapping  between the anatomical axes and the mathematical axes. An anatomical space may be defined by  a reference image chosen as the biological reference for an anatomical structure of interest  derived from a single or multiple specimens (ref: ILX:0777106, RRID:SCR_023499)
+message AnatomicalSpace
+ {
+  uriorcurie id = 0
+  string name = 0
+  string description = 0
+  string version = 0
+  imageDataset measures = 0
+  anatomicalSpace revisionOf = 0
+ }
+// An image dataset is versioned release of a multidimensional regular grid of measurements  and metadata required for a morphological representation of an entity such as an anatomical  structure (ref: OBI_0003327, RRID:SCR_006266)
+message ImageDataset
+ {
+  uriorcurie id = 0
+  string name = 0
+  string description = 0
+  string version = 0
+  aNATOMICALDIRECTION xDirection = 0
+  aNATOMICALDIRECTION yDirection = 0
+  aNATOMICALDIRECTION zDirection = 0
+  integer xSize = 0
+  integer ySize = 0
+  integer zSize = 0
+  float xResolution = 0
+  float yResolution = 0
+  float zResolution = 0
+  dISTANCEUNIT unit = 0
+  imageDataset revisionOf = 0
+ }
+// A parcellation annotation defines a specific segment of an anatomical space denoted by an internal  identifier and is a unique and exclusive member of a versioned release anatomical annotation set.  For example, in the case where the anatomical annotation set is a single multi-value image mask (e.g. Allen Mouse CCF), a specific annotation corresponds to a specific label index (internal identifier) in the mask.
+message ParcellationAnnotation
+ {
+  anatomicalAnnotationSet partOfAnatomicalAnnotationSet = 0
+  string internalIdentifier = 0
+  integer voxelCount = 0
+ }
+// The parcellation annotation term map table defines the relationship between parcellation annotations and parcellation terms.  A parcellation term is uniquely denoted by a parcellation term identifier and the parcellation terminology it belongs to.  A parcellation term can be spatially parameterized by the union of one or more parcellation annotations within a versioned  release of an anatomical annotation set. For example, annotations defining individual cortical layers in cortical region  R (R1, R2/3, R4, etc) can be combined to define the parent region R.
+message ParcellationAnnotationTermMap
+ {
+  parcellationAnnotation subjectParcellationAnnotation = 0
+  parcellationTerm subjectParcellationTerm = 0
+ }
+// A parcellation atlas is a versioned release reference used to guide experiments or deal with the spatial relationship between  objects or the location of objects within the context of some anatomical structure. An atlas is minimally defined by a notion  of space (either implicit or explicit) and an annotation set. Reference atlases usually have additional parts that make them  more useful in certain situations, such as a well defined coordinate system, delineations indicating the boundaries of various  regions or cell populations, landmarks, and labels and names to make it easier to communicate about well known and useful  locations (ref: ILX:0777109, RRID:SCR_023499).
+message ParcellationAtlas
+ {
+  uriorcurie id = 0
+  string name = 0
+  string description = 0
+  string version = 0
+  anatomicalSpace hasAnatomicalSpace = 0
+  anatomicalAnnotationSet hasAnatomicalAnnotationSet = 0
+  parcellationTerminology hasParcellationTerminology = 0
+  parcellationAtlas specializationOf = 0
+  anatomicalSpace revisionOf = 0
+ }
+// The parcellation color assignment associates hex color value to a parcellation term within a  versioned release of a color scheme. A parcellation term is uniquely denoted by a parcellation  term identifier and the parcellation terminology it belongs to.
+message ParcellationColorAssignment
+ {
+  parcellationColorScheme partOfParcellationColorScheme = 0
+  parcellationTerm subjectParcellationTerm = 0
+  string color = 0
+ }
+// A parcellation color scheme is a versioned release color palette that can be used to visualize a  parcellation terminology or its related parcellation annotation. A parcellation terminology may  have zero or more parcellation color schemes and each color scheme is in context of a specific  parcellation terminology, where each parcellation term is assigned a hex color value. A parcellation  color scheme is defined as a part of one and only one parcellation terminology.
+message ParcellationColorScheme
+ {
+  uriorcurie id = 0
+  string name = 0
+  string description = 0
+  string version = 0
+  parcellationTerminology subjectParcellationTerminology = 0
+  parcellationTerminology revisionOf = 0
+ }
+// A parcellation term is an individual term within a specific parcellation terminology describing a  single anatomical entity by a persistent identifier, name, symbol and description.  A parcellation  term is a unique and exclusive member of a versioned release parcellation terminology. Although term  identifiers must be unique within the context of one versioned release of a parcellation terminology,  they can be reused in different parcellation terminology versions enabling the representation of  terminology updates and modifications over time.
+message ParcellationTerm
+ {
+  uriorcurie id = 0
+  string name = 0
+  string description = 0
+  string symbol = 0
+  parcellationTermSet partOfParcellationTermSet = 0
+  integer ordinal = 0
+  parcellationTerm hasParentParcellationTerm = 0
+ }
+// A parcellation terminology is a versioned release set of terms that can be used to label  annotations in an atlas, providing human readability and context and allowing communication  about brain locations and structural properties. Typically, a terminology is a set of  descriptive anatomical terms following a specific naming convention and/or approach to  organization scheme. The terminology may be a flat list of controlled vocabulary, a taxonomy  and partonomy, or an ontology (ref: ILX:0777107, RRID:SCR_023499)
+message ParcellationTerminology
+ {
+  uriorcurie id = 0
+  string name = 0
+  string description = 0
+  string version = 0
+  parcellationTerminology revisionOf = 0
+ }
+// A parcellation term set is the set of parcellation terms within a specific parcellation terminology.  A parcellation term set belongs to one and only one parcellation terminology and each parcellation  term in a parcellation terminology belongs to one and only one term set.  If the parcellation terminology is a taxonomy, parcellation term sets can be used to represent  taxonomic ranks. For consistency, if the terminology does not have the notion of taxonomic ranks,  all terms are grouped into a single parcellation term set.
+message ParcellationTermSet
+ {
+  uriorcurie id = 0
+  string name = 0
+  string description = 0
+  parcellationTerminology partOfParcellationTerminology = 0
+  integer ordinal = 0
+  parcellationTermSet hasParentParcellationTermSet = 0
+ }

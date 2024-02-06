@@ -1,0 +1,9 @@
+{
+   "ANSRS": "https://w3id.org/my-org/ansrs-schema/",
+   "PATO": "http://purl.obolibrary.org/obo/PATO_",
+   "ansrs": "https://w3id.org/my-org/ansrs-schema/",
+   "biolink": "https://w3id.org/biolink/",
+   "example": "https://example.org/",
+   "linkml": "https://w3id.org/linkml/",
+   "schema": "http://schema.org/"
+}

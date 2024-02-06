@@ -1,0 +1,128 @@
+type AnatomicalAnnotationSet
+  {
+    id: Uriorcurie!
+    name: String!
+    description: String!
+    version: String!
+    parameterizes: AnatomicalSpace!
+    revisionOf: ParcellationTerminology
+  }
+
+type AnatomicalSpace
+  {
+    id: Uriorcurie!
+    name: String!
+    description: String!
+    version: String!
+    measures: ImageDataset!
+    revisionOf: AnatomicalSpace
+  }
+
+type ImageDataset
+  {
+    id: Uriorcurie!
+    name: String!
+    description: String!
+    version: String!
+    xDirection: ANATOMICALDIRECTION
+    yDirection: ANATOMICALDIRECTION
+    zDirection: ANATOMICALDIRECTION
+    xSize: Integer
+    ySize: Integer
+    zSize: Integer
+    xResolution: Float
+    yResolution: Float
+    zResolution: Float
+    unit: DISTANCEUNIT
+    revisionOf: ImageDataset
+  }
+
+interface NamedThing
+  {
+    id: Uriorcurie!
+    name: String!
+    description: String!
+  }
+
+type ParcellationAnnotation
+  {
+    partOfAnatomicalAnnotationSet: AnatomicalAnnotationSet!
+    internalIdentifier: String!
+    voxelCount: Integer
+  }
+
+type ParcellationAnnotationTermMap
+  {
+    subjectParcellationAnnotation: ParcellationAnnotation!
+    subjectParcellationTerm: ParcellationTerm!
+  }
+
+type ParcellationAtlas
+  {
+    id: Uriorcurie!
+    name: String!
+    description: String!
+    version: String!
+    hasAnatomicalSpace: AnatomicalSpace!
+    hasAnatomicalAnnotationSet: AnatomicalAnnotationSet!
+    hasParcellationTerminology: ParcellationTerminology!
+    specializationOf: ParcellationAtlas
+    revisionOf: AnatomicalSpace
+  }
+
+type ParcellationColorAssignment
+  {
+    partOfParcellationColorScheme: ParcellationColorScheme!
+    subjectParcellationTerm: ParcellationTerm!
+    color: String
+  }
+
+type ParcellationColorScheme
+  {
+    id: Uriorcurie!
+    name: String!
+    description: String!
+    version: String!
+    subjectParcellationTerminology: ParcellationTerminology!
+    revisionOf: ParcellationTerminology
+  }
+
+type ParcellationTerm
+  {
+    id: Uriorcurie!
+    name: String!
+    description: String!
+    symbol: String
+    partOfParcellationTermSet: ParcellationTermSet!
+    ordinal: Integer
+    hasParentParcellationTerm: ParcellationTerm
+  }
+
+type ParcellationTerminology
+  {
+    id: Uriorcurie!
+    name: String!
+    description: String!
+    version: String!
+    revisionOf: ParcellationTerminology
+  }
+
+type ParcellationTermSet
+  {
+    id: Uriorcurie!
+    name: String!
+    description: String!
+    partOfParcellationTerminology: ParcellationTerminology!
+    ordinal: Integer
+    hasParentParcellationTermSet: ParcellationTermSet
+  }
+
+interface VersionedNamedThing
+  {
+    id: Uriorcurie!
+    name: String!
+    description: String!
+    version: String!
+    revisionOf: VersionedNamedThing
+  }
+

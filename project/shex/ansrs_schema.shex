@@ -1,0 +1,199 @@
+BASE <https://w3id.org/my-org/ansrs-schema/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX linkml: <https://w3id.org/linkml/>
+
+
+linkml:String xsd:string
+
+linkml:Integer xsd:integer
+
+linkml:Boolean xsd:boolean
+
+linkml:Float xsd:float
+
+linkml:Double xsd:double
+
+linkml:Decimal xsd:decimal
+
+linkml:Time xsd:time
+
+linkml:Date xsd:date
+
+linkml:Datetime xsd:dateTime
+
+linkml:DateOrDatetime linkml:DateOrDatetime
+
+linkml:Uriorcurie IRI
+
+linkml:Curie xsd:string
+
+linkml:Uri IRI
+
+linkml:Ncname xsd:string
+
+linkml:Objectidentifier IRI
+
+linkml:Nodeidentifier NONLITERAL
+
+linkml:Jsonpointer xsd:string
+
+linkml:Jsonpath xsd:string
+
+linkml:Sparqlpath xsd:string
+
+<AnatomicalAnnotationSet> CLOSED {
+    (  $<AnatomicalAnnotationSet_tes> (  &<VersionedNamedThing_tes> ;
+          rdf:type [ <VersionedNamedThing> ] ? ;
+          <parameterizes> @<AnatomicalSpace> ;
+          <revision_of> @<ParcellationTerminology> ?
+       ) ;
+       rdf:type [ <AnatomicalAnnotationSet> ]
+    )
+}
+
+<AnatomicalSpace> CLOSED {
+    (  $<AnatomicalSpace_tes> (  &<VersionedNamedThing_tes> ;
+          rdf:type [ <VersionedNamedThing> ] ? ;
+          <measures> @<ImageDataset> ;
+          <revision_of> @<AnatomicalSpace> ?
+       ) ;
+       rdf:type [ <AnatomicalSpace> ]
+    )
+}
+
+<ImageDataset> CLOSED {
+    (  $<ImageDataset_tes> (  &<VersionedNamedThing_tes> ;
+          rdf:type [ <VersionedNamedThing> ] ? ;
+          <x_direction> [ <https://w3id.org/my-org/ansrs-schema/ANATOMICALDIRECTION#left_to_right>
+             <https://w3id.org/my-org/ansrs-schema/ANATOMICALDIRECTION#posterior_to_anterior>
+             <https://w3id.org/my-org/ansrs-schema/ANATOMICALDIRECTION#inferior_to_superior> ] ? ;
+          <y_direction> [ <https://w3id.org/my-org/ansrs-schema/ANATOMICALDIRECTION#left_to_right>
+             <https://w3id.org/my-org/ansrs-schema/ANATOMICALDIRECTION#posterior_to_anterior>
+             <https://w3id.org/my-org/ansrs-schema/ANATOMICALDIRECTION#inferior_to_superior> ] ? ;
+          <z_direction> [ <https://w3id.org/my-org/ansrs-schema/ANATOMICALDIRECTION#left_to_right>
+             <https://w3id.org/my-org/ansrs-schema/ANATOMICALDIRECTION#posterior_to_anterior>
+             <https://w3id.org/my-org/ansrs-schema/ANATOMICALDIRECTION#inferior_to_superior> ] ? ;
+          <x_size> @linkml:Integer ? ;
+          <y_size> @linkml:Integer ? ;
+          <z_size> @linkml:Integer ? ;
+          <x_resolution> @linkml:Float ? ;
+          <y_resolution> @linkml:Float ? ;
+          <z_resolution> @linkml:Float ? ;
+          <unit> [ <https://w3id.org/my-org/ansrs-schema/DISTANCEUNIT#mm> <https://w3id.org/my-org/ansrs-schema/DISTANCEUNIT#um>
+             <https://w3id.org/my-org/ansrs-schema/DISTANCEUNIT#m> ] ? ;
+          <revision_of> @<ImageDataset> ?
+       ) ;
+       rdf:type [ <ImageDataset> ]
+    )
+}
+
+<NamedThing>  (
+    @<ParcellationTerm> OR @<ParcellationTermSet> OR @<VersionedNamedThing>
+)
+
+<NamedThing_struct> {
+    (  $<NamedThing_tes> (  <name> @linkml:String ;
+          <description> @linkml:String
+       ) ;
+       rdf:type [ <NamedThing> ]
+    )
+}
+
+<ParcellationAnnotation> CLOSED {
+    (  $<ParcellationAnnotation_tes> (  <part_of_anatomical_annotation_set> @<AnatomicalAnnotationSet> ;
+          <internal_identifier> @linkml:String ;
+          <voxel_count> @linkml:Integer ?
+       ) ;
+       rdf:type [ <ParcellationAnnotation> ] ?
+    )
+}
+
+<ParcellationAnnotationTermMap> CLOSED {
+    (  $<ParcellationAnnotationTermMap_tes> (  <subject_parcellation_annotation> @<ParcellationAnnotation> ;
+          <subject_parcellation_term> @<ParcellationTerm>
+       ) ;
+       rdf:type [ <ParcellationAnnotationTermMap> ] ?
+    )
+}
+
+<ParcellationAtlas> CLOSED {
+    (  $<ParcellationAtlas_tes> (  &<VersionedNamedThing_tes> ;
+          rdf:type [ <VersionedNamedThing> ] ? ;
+          <has_anatomical_space> @<AnatomicalSpace> ;
+          <has_anatomical_annotation_set> @<AnatomicalAnnotationSet> ;
+          <has_parcellation_terminology> @<ParcellationTerminology> ;
+          <specialization_of> @<ParcellationAtlas> ? ;
+          <revision_of> @<AnatomicalSpace> ?
+       ) ;
+       rdf:type [ <ParcellationAtlas> ]
+    )
+}
+
+<ParcellationColorAssignment> CLOSED {
+    (  $<ParcellationColorAssignment_tes> (  <part_of_parcellation_color_scheme> @<ParcellationColorScheme> ;
+          <subject_parcellation_term> @<ParcellationTerm> ;
+          <color> @linkml:String ?
+       ) ;
+       rdf:type [ <ParcellationColorAssignment> ] ?
+    )
+}
+
+<ParcellationColorScheme> CLOSED {
+    (  $<ParcellationColorScheme_tes> (  &<VersionedNamedThing_tes> ;
+          rdf:type [ <VersionedNamedThing> ] ? ;
+          <subject_parcellation_terminology> @<ParcellationTerminology> ;
+          <revision_of> @<ParcellationTerminology> ?
+       ) ;
+       rdf:type [ <ParcellationColorScheme> ]
+    )
+}
+
+<ParcellationTerm> CLOSED {
+    (  $<ParcellationTerm_tes> (  &<NamedThing_tes> ;
+          rdf:type [ <NamedThing> ] ? ;
+          <symbol> @linkml:String ? ;
+          <part_of_parcellation_term_set> @<ParcellationTermSet> ;
+          <ordinal> @linkml:Integer ? ;
+          <has_parent_parcellation_term> @<ParcellationTerm> ?
+       ) ;
+       rdf:type [ <ParcellationTerm> ]
+    )
+}
+
+<ParcellationTerminology> CLOSED {
+    (  $<ParcellationTerminology_tes> (  &<VersionedNamedThing_tes> ;
+          rdf:type [ <VersionedNamedThing> ] ? ;
+          <revision_of> @<ParcellationTerminology> ?
+       ) ;
+       rdf:type [ <ParcellationTerminology> ]
+    )
+}
+
+<ParcellationTermSet> CLOSED {
+    (  $<ParcellationTermSet_tes> (  &<NamedThing_tes> ;
+          rdf:type [ <NamedThing> ] ? ;
+          <part_of_parcellation_terminology> @<ParcellationTerminology> ;
+          <ordinal> @linkml:Integer ? ;
+          <has_parent_parcellation_term_set> @<ParcellationTermSet> ?
+       ) ;
+       rdf:type [ <ParcellationTermSet> ]
+    )
+}
+
+<VersionedNamedThing>  (
+    @<AnatomicalAnnotationSet> OR @<AnatomicalSpace> OR @<ImageDataset> OR @<ParcellationAtlas> OR @<ParcellationColorScheme> OR
+    @<ParcellationTerminology>
+)
+
+<VersionedNamedThing_struct> {
+    (  $<VersionedNamedThing_tes> (  &<NamedThing_tes> ;
+          rdf:type [ <NamedThing> ] ? ;
+          <version> @linkml:String ;
+          <revision_of> @<VersionedNamedThing> ?
+       ) ;
+       rdf:type [ <VersionedNamedThing> ]
+    )
+}
+
+

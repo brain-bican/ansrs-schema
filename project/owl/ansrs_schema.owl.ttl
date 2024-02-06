@@ -1,0 +1,752 @@
+@prefix ANSRS: <https://w3id.org/my-org/ansrs-schema/> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix linkml: <https://w3id.org/linkml/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+ANSRS:ParcellationAnnotationTermMap a owl:Class,
+        linkml:ClassDefinition ;
+    rdfs:label "ParcellationAnnotationTermMap" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty ANSRS:subject_parcellation_term ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty ANSRS:subject_parcellation_annotation ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty ANSRS:subject_parcellation_term ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom ANSRS:ParcellationAnnotation ;
+            owl:onProperty ANSRS:subject_parcellation_annotation ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty ANSRS:subject_parcellation_annotation ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom ANSRS:ParcellationTerm ;
+            owl:onProperty ANSRS:subject_parcellation_term ] ;
+    skos:definition "The parcellation annotation term map table defines the relationship between parcellation annotations and parcellation terms.  A parcellation term is uniquely denoted by a parcellation term identifier and the parcellation terminology it belongs to.  A parcellation term can be spatially parameterized by the union of one or more parcellation annotations within a versioned  release of an anatomical annotation set. For example, annotations defining individual cortical layers in cortical region  R (R1, R2/3, R4, etc) can be combined to define the parent region R." ;
+    skos:inScheme <https://w3id.org/my-org/ansrs-schema> .
+
+ANSRS:ParcellationColorAssignment a owl:Class,
+        linkml:ClassDefinition ;
+    rdfs:label "ParcellationColorAssignment" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom linkml:String ;
+            owl:onProperty ANSRS:color ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty ANSRS:subject_parcellation_term ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty ANSRS:part_of_parcellation_color_scheme ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty ANSRS:color ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty ANSRS:subject_parcellation_term ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom ANSRS:ParcellationTerm ;
+            owl:onProperty ANSRS:subject_parcellation_term ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty ANSRS:color ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom ANSRS:ParcellationColorScheme ;
+            owl:onProperty ANSRS:part_of_parcellation_color_scheme ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty ANSRS:part_of_parcellation_color_scheme ] ;
+    skos:definition "The parcellation color assignment associates hex color value to a parcellation term within a  versioned release of a color scheme. A parcellation term is uniquely denoted by a parcellation  term identifier and the parcellation terminology it belongs to." ;
+    skos:inScheme <https://w3id.org/my-org/ansrs-schema> .
+
+ANSRS:ParcellationAnnotation a owl:Class,
+        linkml:ClassDefinition ;
+    rdfs:label "ParcellationAnnotation" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom ANSRS:AnatomicalAnnotationSet ;
+            owl:onProperty ANSRS:part_of_anatomical_annotation_set ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom [ a rdfs:Datatype ;
+                    owl:intersectionOf ( linkml:Integer [ a rdfs:Datatype ;
+                                owl:onDatatype xsd:integer ;
+                                owl:withRestrictions ( [ xsd:minInclusive 0 ] ) ] ) ] ;
+            owl:onProperty ANSRS:voxel_count ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom linkml:String ;
+            owl:onProperty ANSRS:internal_identifier ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty ANSRS:voxel_count ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty ANSRS:internal_identifier ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty ANSRS:voxel_count ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty ANSRS:internal_identifier ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty ANSRS:part_of_anatomical_annotation_set ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty ANSRS:part_of_anatomical_annotation_set ] ;
+    skos:definition "A parcellation annotation defines a specific segment of an anatomical space denoted by an internal  identifier and is a unique and exclusive member of a versioned release anatomical annotation set.  For example, in the case where the anatomical annotation set is a single multi-value image mask (e.g. Allen Mouse CCF), a specific annotation corresponds to a specific label index (internal identifier) in the mask." ;
+    skos:inScheme <https://w3id.org/my-org/ansrs-schema> .
+
+ANSRS:ParcellationAtlas a owl:Class,
+        linkml:ClassDefinition ;
+    rdfs:label "ParcellationAtlas" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty ANSRS:specialization_of ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom ANSRS:AnatomicalSpace ;
+            owl:onProperty ANSRS:revision_of ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty ANSRS:revision_of ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom ANSRS:AnatomicalAnnotationSet ;
+            owl:onProperty ANSRS:has_anatomical_annotation_set ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom ANSRS:AnatomicalSpace ;
+            owl:onProperty ANSRS:has_anatomical_space ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom ANSRS:ParcellationTerminology ;
+            owl:onProperty ANSRS:has_parcellation_terminology ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty ANSRS:has_parcellation_terminology ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty ANSRS:has_parcellation_terminology ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty ANSRS:specialization_of ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty ANSRS:has_anatomical_space ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty ANSRS:has_anatomical_space ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty ANSRS:has_anatomical_annotation_set ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty ANSRS:has_anatomical_annotation_set ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom ANSRS:ParcellationAtlas ;
+            owl:onProperty ANSRS:specialization_of ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty ANSRS:revision_of ],
+        ANSRS:VersionedNamedThing ;
+    skos:definition "A parcellation atlas is a versioned release reference used to guide experiments or deal with the spatial relationship between  objects or the location of objects within the context of some anatomical structure. An atlas is minimally defined by a notion  of space (either implicit or explicit) and an annotation set. Reference atlases usually have additional parts that make them  more useful in certain situations, such as a well defined coordinate system, delineations indicating the boundaries of various  regions or cell populations, landmarks, and labels and names to make it easier to communicate about well known and useful  locations (ref: ILX:0777109, RRID:SCR_023499)." ;
+    skos:inScheme <https://w3id.org/my-org/ansrs-schema> .
+
+ANSRS:ParcellationColorScheme a owl:Class,
+        linkml:ClassDefinition ;
+    rdfs:label "ParcellationColorScheme" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty ANSRS:subject_parcellation_terminology ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty ANSRS:revision_of ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom ANSRS:ParcellationTerminology ;
+            owl:onProperty ANSRS:revision_of ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom ANSRS:ParcellationTerminology ;
+            owl:onProperty ANSRS:subject_parcellation_terminology ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty ANSRS:revision_of ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty ANSRS:subject_parcellation_terminology ],
+        ANSRS:VersionedNamedThing ;
+    skos:definition "A parcellation color scheme is a versioned release color palette that can be used to visualize a  parcellation terminology or its related parcellation annotation. A parcellation terminology may  have zero or more parcellation color schemes and each color scheme is in context of a specific  parcellation terminology, where each parcellation term is assigned a hex color value. A parcellation  color scheme is defined as a part of one and only one parcellation terminology." ;
+    skos:inScheme <https://w3id.org/my-org/ansrs-schema> .
+
+<https://w3id.org/my-org/ansrs-schema/ANATOMICALDIRECTION#inferior_to_superior> a owl:Class,
+        ANSRS:ANATOMICALDIRECTION ;
+    rdfs:label "inferior_to_superior" ;
+    rdfs:subClassOf ANSRS:ANATOMICALDIRECTION .
+
+<https://w3id.org/my-org/ansrs-schema/ANATOMICALDIRECTION#left_to_right> a owl:Class,
+        ANSRS:ANATOMICALDIRECTION ;
+    rdfs:label "left_to_right" ;
+    rdfs:subClassOf ANSRS:ANATOMICALDIRECTION .
+
+<https://w3id.org/my-org/ansrs-schema/ANATOMICALDIRECTION#posterior_to_anterior> a owl:Class,
+        ANSRS:ANATOMICALDIRECTION ;
+    rdfs:label "posterior_to_anterior" ;
+    rdfs:subClassOf ANSRS:ANATOMICALDIRECTION .
+
+ANSRS:AnatomicalAnnotationSet a owl:Class,
+        linkml:ClassDefinition ;
+    rdfs:label "AnatomicalAnnotationSet" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty ANSRS:revision_of ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty ANSRS:parameterizes ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom ANSRS:AnatomicalSpace ;
+            owl:onProperty ANSRS:parameterizes ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty ANSRS:parameterizes ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom ANSRS:ParcellationTerminology ;
+            owl:onProperty ANSRS:revision_of ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty ANSRS:revision_of ],
+        ANSRS:VersionedNamedThing ;
+    skos:definition "An anatomical annotation set is a versioned release of a set of anatomical annotations anchored  in the same anatomical space that divides the space into distinct segments following some annotation  criteria or parcellation scheme. For example, the anatomical annotation set of 3D image based  reference atlases (e.g. Allen Mouse CCF) can be expressed as a set of label indices of single  multi-valued image annotations or as a set of segmentation masks (ref: ILX:0777108, RRID:SCR_023499)" ;
+    skos:inScheme <https://w3id.org/my-org/ansrs-schema> .
+
+<https://w3id.org/my-org/ansrs-schema/DISTANCEUNIT#m> a owl:Class,
+        ANSRS:DISTANCEUNIT ;
+    rdfs:label "m" ;
+    rdfs:subClassOf ANSRS:DISTANCEUNIT .
+
+<https://w3id.org/my-org/ansrs-schema/DISTANCEUNIT#mm> a owl:Class,
+        ANSRS:DISTANCEUNIT ;
+    rdfs:label "mm" ;
+    rdfs:subClassOf ANSRS:DISTANCEUNIT .
+
+<https://w3id.org/my-org/ansrs-schema/DISTANCEUNIT#um> a owl:Class,
+        ANSRS:DISTANCEUNIT ;
+    rdfs:label "um" ;
+    rdfs:subClassOf ANSRS:DISTANCEUNIT .
+
+ANSRS:ImageDataset a owl:Class,
+        linkml:ClassDefinition ;
+    rdfs:label "ImageDataset" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty ANSRS:x_size ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty ANSRS:revision_of ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty ANSRS:y_resolution ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty ANSRS:z_resolution ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty ANSRS:y_resolution ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty ANSRS:x_direction ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty ANSRS:unit ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom [ a rdfs:Datatype ;
+                    owl:intersectionOf ( linkml:Integer [ a rdfs:Datatype ;
+                                owl:onDatatype xsd:integer ;
+                                owl:withRestrictions ( [ xsd:minInclusive 1 ] ) ] ) ] ;
+            owl:onProperty ANSRS:z_size ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom linkml:Float ;
+            owl:onProperty ANSRS:y_resolution ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom ANSRS:ANATOMICALDIRECTION ;
+            owl:onProperty ANSRS:z_direction ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty ANSRS:z_direction ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom ANSRS:ImageDataset ;
+            owl:onProperty ANSRS:revision_of ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty ANSRS:z_resolution ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom ANSRS:ANATOMICALDIRECTION ;
+            owl:onProperty ANSRS:y_direction ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty ANSRS:y_direction ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom ANSRS:DISTANCEUNIT ;
+            owl:onProperty ANSRS:unit ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty ANSRS:x_resolution ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom linkml:Float ;
+            owl:onProperty ANSRS:z_resolution ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty ANSRS:y_direction ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty ANSRS:y_size ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty ANSRS:z_direction ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty ANSRS:x_size ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty ANSRS:x_resolution ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom [ a rdfs:Datatype ;
+                    owl:intersectionOf ( linkml:Integer [ a rdfs:Datatype ;
+                                owl:onDatatype xsd:integer ;
+                                owl:withRestrictions ( [ xsd:minInclusive 1 ] ) ] ) ] ;
+            owl:onProperty ANSRS:x_size ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom linkml:Float ;
+            owl:onProperty ANSRS:x_resolution ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom ANSRS:ANATOMICALDIRECTION ;
+            owl:onProperty ANSRS:x_direction ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty ANSRS:z_size ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty ANSRS:x_direction ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty ANSRS:revision_of ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom [ a rdfs:Datatype ;
+                    owl:intersectionOf ( linkml:Integer [ a rdfs:Datatype ;
+                                owl:onDatatype xsd:integer ;
+                                owl:withRestrictions ( [ xsd:minInclusive 1 ] ) ] ) ] ;
+            owl:onProperty ANSRS:y_size ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty ANSRS:y_size ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty ANSRS:unit ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty ANSRS:z_size ],
+        ANSRS:VersionedNamedThing ;
+    skos:definition "An image dataset is versioned release of a multidimensional regular grid of measurements  and metadata required for a morphological representation of an entity such as an anatomical  structure (ref: OBI_0003327, RRID:SCR_006266)" ;
+    skos:inScheme <https://w3id.org/my-org/ansrs-schema> .
+
+ANSRS:ParcellationTermSet a owl:Class,
+        linkml:ClassDefinition ;
+    rdfs:label "ParcellationTermSet" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom ANSRS:ParcellationTermSet ;
+            owl:onProperty ANSRS:has_parent_parcellation_term_set ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty ANSRS:has_parent_parcellation_term_set ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty ANSRS:part_of_parcellation_terminology ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty ANSRS:ordinal ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty ANSRS:part_of_parcellation_terminology ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty ANSRS:ordinal ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty ANSRS:has_parent_parcellation_term_set ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom [ a rdfs:Datatype ;
+                    owl:intersectionOf ( linkml:Integer [ a rdfs:Datatype ;
+                                owl:onDatatype xsd:integer ;
+                                owl:withRestrictions ( [ xsd:minInclusive 0 ] ) ] ) ] ;
+            owl:onProperty ANSRS:ordinal ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom ANSRS:ParcellationTerminology ;
+            owl:onProperty ANSRS:part_of_parcellation_terminology ],
+        ANSRS:NamedThing ;
+    skos:definition "A parcellation term set is the set of parcellation terms within a specific parcellation terminology.  A parcellation term set belongs to one and only one parcellation terminology and each parcellation  term in a parcellation terminology belongs to one and only one term set.  If the parcellation terminology is a taxonomy, parcellation term sets can be used to represent  taxonomic ranks. For consistency, if the terminology does not have the notion of taxonomic ranks,  all terms are grouped into a single parcellation term set." ;
+    skos:inScheme <https://w3id.org/my-org/ansrs-schema> .
+
+ANSRS:NamedThing a owl:Class,
+        linkml:ClassDefinition ;
+    rdfs:label "NamedThing" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom linkml:String ;
+            owl:onProperty ANSRS:name ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty ANSRS:description ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom linkml:Uriorcurie ;
+            owl:onProperty ANSRS:id ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom linkml:String ;
+            owl:onProperty ANSRS:description ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty ANSRS:description ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty ANSRS:id ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty ANSRS:id ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty ANSRS:name ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty ANSRS:name ] ;
+    skos:definition "Core base entity for ANSRS schema representing an entity with an identifier  name and description." ;
+    skos:inScheme <https://w3id.org/my-org/core> .
+
+ANSRS:ParcellationTerm a owl:Class,
+        linkml:ClassDefinition ;
+    rdfs:label "ParcellationTerm" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty ANSRS:ordinal ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty ANSRS:symbol ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty ANSRS:has_parent_parcellation_term ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty ANSRS:part_of_parcellation_term_set ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom [ a rdfs:Datatype ;
+                    owl:intersectionOf ( linkml:Integer [ a rdfs:Datatype ;
+                                owl:onDatatype xsd:integer ;
+                                owl:withRestrictions ( [ xsd:minInclusive 0 ] ) ] ) ] ;
+            owl:onProperty ANSRS:ordinal ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty ANSRS:symbol ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom linkml:String ;
+            owl:onProperty ANSRS:symbol ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty ANSRS:has_parent_parcellation_term ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom ANSRS:ParcellationTermSet ;
+            owl:onProperty ANSRS:part_of_parcellation_term_set ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom ANSRS:ParcellationTerm ;
+            owl:onProperty ANSRS:has_parent_parcellation_term ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty ANSRS:ordinal ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty ANSRS:part_of_parcellation_term_set ],
+        ANSRS:NamedThing ;
+    skos:definition "A parcellation term is an individual term within a specific parcellation terminology describing a  single anatomical entity by a persistent identifier, name, symbol and description.  A parcellation  term is a unique and exclusive member of a versioned release parcellation terminology. Although term  identifiers must be unique within the context of one versioned release of a parcellation terminology,  they can be reused in different parcellation terminology versions enabling the representation of  terminology updates and modifications over time." ;
+    skos:inScheme <https://w3id.org/my-org/ansrs-schema> .
+
+ANSRS:color a owl:ObjectProperty,
+        linkml:SlotDefinition ;
+    rdfs:label "color" ;
+    skos:definition "A string representing to hex triplet code of a color" ;
+    skos:inScheme <https://w3id.org/my-org/ansrs-schema> .
+
+ANSRS:description a owl:ObjectProperty,
+        linkml:SlotDefinition ;
+    rdfs:label "description" ;
+    skos:inScheme <https://w3id.org/my-org/core> .
+
+ANSRS:has_anatomical_annotation_set a owl:ObjectProperty,
+        linkml:SlotDefinition ;
+    rdfs:label "has_anatomical_annotation_set" ;
+    skos:definition "Reference to the anatomical annotation set component of the parcellation atlas" ;
+    skos:inScheme <https://w3id.org/my-org/ansrs-schema> .
+
+ANSRS:has_anatomical_space a owl:ObjectProperty,
+        linkml:SlotDefinition ;
+    rdfs:label "has_anatomical_space" ;
+    skos:definition "Reference to the anatomical space component of the parcellation atlas" ;
+    skos:inScheme <https://w3id.org/my-org/ansrs-schema> .
+
+ANSRS:has_parcellation_terminology a owl:ObjectProperty,
+        linkml:SlotDefinition ;
+    rdfs:label "has_parcellation_terminology" ;
+    skos:definition "Reference to the parcellation terminology component of the parcellation atlas" ;
+    skos:inScheme <https://w3id.org/my-org/ansrs-schema> .
+
+ANSRS:has_parent_parcellation_term a owl:ObjectProperty,
+        linkml:SlotDefinition ;
+    rdfs:label "has_parent_parcellation_term" ;
+    skos:definition "Reference to the parent parcellation term for which the parcellation term is a child ( spatially part) of" ;
+    skos:inScheme <https://w3id.org/my-org/ansrs-schema> .
+
+ANSRS:has_parent_parcellation_term_set a owl:ObjectProperty,
+        linkml:SlotDefinition ;
+    rdfs:label "has_parent_parcellation_term_set" ;
+    skos:definition "Reference to the parent parcellation term set for which the parcellation term set is a child  (lower taxonomic rank) of." ;
+    skos:inScheme <https://w3id.org/my-org/ansrs-schema> .
+
+ANSRS:id a owl:ObjectProperty,
+        linkml:SlotDefinition ;
+    rdfs:label "id" ;
+    rdfs:range linkml:Uriorcurie ;
+    skos:inScheme <https://w3id.org/my-org/core> .
+
+ANSRS:internal_identifier a owl:ObjectProperty,
+        linkml:SlotDefinition ;
+    rdfs:label "internal_identifier" ;
+    skos:definition "An identifier that uniquely denotes a specific parcellation annotation within the context of an anatomical annotation set" ;
+    skos:inScheme <https://w3id.org/my-org/ansrs-schema> .
+
+ANSRS:measures a owl:ObjectProperty,
+        linkml:SlotDefinition ;
+    rdfs:label "measures" ;
+    skos:definition "Reference to the specific image dataset used to define the anatomical space." ;
+    skos:inScheme <https://w3id.org/my-org/ansrs-schema> .
+
+ANSRS:name a owl:ObjectProperty,
+        linkml:SlotDefinition ;
+    rdfs:label "name" ;
+    skos:inScheme <https://w3id.org/my-org/core> .
+
+ANSRS:parameterizes a owl:ObjectProperty,
+        linkml:SlotDefinition ;
+    rdfs:label "parameterizes" ;
+    skos:definition "Reference to the anatomical space for which the anatomical annotation set is anchored" ;
+    skos:inScheme <https://w3id.org/my-org/ansrs-schema> .
+
+ANSRS:part_of_anatomical_annotation_set a owl:ObjectProperty,
+        linkml:SlotDefinition ;
+    rdfs:label "part_of_anatomical_annotation_set" ;
+    skos:inScheme <https://w3id.org/my-org/ansrs-schema> .
+
+ANSRS:part_of_parcellation_color_scheme a owl:ObjectProperty,
+        linkml:SlotDefinition ;
+    rdfs:label "part_of_parcellation_color_scheme" ;
+    skos:definition "Reference to the parcellation color scheme for which the color assignment is part of." ;
+    skos:inScheme <https://w3id.org/my-org/ansrs-schema> .
+
+ANSRS:part_of_parcellation_term_set a owl:ObjectProperty,
+        linkml:SlotDefinition ;
+    rdfs:label "part_of_parcellation_term_set" ;
+    skos:definition "Reference to the parcellation term set for which the parcellation term is part of." ;
+    skos:inScheme <https://w3id.org/my-org/ansrs-schema> .
+
+ANSRS:part_of_parcellation_terminology a owl:ObjectProperty,
+        linkml:SlotDefinition ;
+    rdfs:label "part_of_parcellation_terminology" ;
+    skos:definition "Reference to the parcellation terminology for which the parcellation term set partitions." ;
+    skos:inScheme <https://w3id.org/my-org/ansrs-schema> .
+
+ANSRS:specialization_of a owl:ObjectProperty,
+        linkml:SlotDefinition ;
+    rdfs:label "specialization_of" ;
+    skos:definition "Reference to the general (non versioned) parcellation atlas for which the parcellation atlas is a specific  version release of." ;
+    skos:inScheme <https://w3id.org/my-org/ansrs-schema> .
+
+ANSRS:subject_parcellation_annotation a owl:ObjectProperty,
+        linkml:SlotDefinition ;
+    rdfs:label "subject_parcellation_annotation" ;
+    skos:definition "Reference to the parcellation annotation that is the subject of the association." ;
+    skos:inScheme <https://w3id.org/my-org/ansrs-schema> .
+
+ANSRS:subject_parcellation_terminology a owl:ObjectProperty,
+        linkml:SlotDefinition ;
+    rdfs:label "subject_parcellation_terminology" ;
+    skos:definition "Reference to the parcellation terminology for which the parcellation color scheme is in  context of." ;
+    skos:inScheme <https://w3id.org/my-org/ansrs-schema> .
+
+ANSRS:symbol a owl:ObjectProperty,
+        linkml:SlotDefinition ;
+    rdfs:label "symbol" ;
+    skos:definition "Symbol representing a parcellation term." ;
+    skos:inScheme <https://w3id.org/my-org/ansrs-schema> .
+
+ANSRS:unit a owl:ObjectProperty,
+        linkml:SlotDefinition ;
+    rdfs:label "unit" ;
+    skos:definition "A controlled vocabulary attribute defining the length unit of the x, y, and z  resolution values." ;
+    skos:inScheme <https://w3id.org/my-org/ansrs-schema> .
+
+ANSRS:version a owl:ObjectProperty,
+        linkml:SlotDefinition ;
+    rdfs:label "version" ;
+    skos:inScheme <https://w3id.org/my-org/core> .
+
+ANSRS:voxel_count a owl:ObjectProperty,
+        linkml:SlotDefinition ;
+    rdfs:label "voxel_count" ;
+    skos:definition "The number of voxels (3D pixels) spanned by the parcellation annotation (optional)." ;
+    skos:inScheme <https://w3id.org/my-org/ansrs-schema> .
+
+ANSRS:x_direction a owl:ObjectProperty,
+        linkml:SlotDefinition ;
+    rdfs:label "x_direction" ;
+    skos:definition "A controlled vocabulary attribute defining the x axis direction in terms of anatomical  direction." ;
+    skos:inScheme <https://w3id.org/my-org/ansrs-schema> .
+
+ANSRS:x_resolution a owl:ObjectProperty,
+        linkml:SlotDefinition ;
+    rdfs:label "x_resolution" ;
+    skos:definition "The resolution (length / pixel) in along the x axis (numerical value part)." ;
+    skos:inScheme <https://w3id.org/my-org/ansrs-schema> .
+
+ANSRS:x_size a owl:ObjectProperty,
+        linkml:SlotDefinition ;
+    rdfs:label "x_size" ;
+    skos:definition "The number of pixels/voxels (size) along the x axis." ;
+    skos:inScheme <https://w3id.org/my-org/ansrs-schema> .
+
+ANSRS:y_direction a owl:ObjectProperty,
+        linkml:SlotDefinition ;
+    rdfs:label "y_direction" ;
+    skos:definition "A controlled vocabulary attribute defining the y axis direction in terms of anatomical  direction." ;
+    skos:inScheme <https://w3id.org/my-org/ansrs-schema> .
+
+ANSRS:y_resolution a owl:ObjectProperty,
+        linkml:SlotDefinition ;
+    rdfs:label "y_resolution" ;
+    skos:definition "The resolution (length / pixel) in along the y axis (numerical value part)." ;
+    skos:inScheme <https://w3id.org/my-org/ansrs-schema> .
+
+ANSRS:y_size a owl:ObjectProperty,
+        linkml:SlotDefinition ;
+    rdfs:label "y_size" ;
+    skos:definition "The number of pixels/voxels (size) along the y axis." ;
+    skos:inScheme <https://w3id.org/my-org/ansrs-schema> .
+
+ANSRS:z_direction a owl:ObjectProperty,
+        linkml:SlotDefinition ;
+    rdfs:label "z_direction" ;
+    skos:definition "A controlled vocabulary attribute defining the z axis direction in terms of anatomical  direction." ;
+    skos:inScheme <https://w3id.org/my-org/ansrs-schema> .
+
+ANSRS:z_resolution a owl:ObjectProperty,
+        linkml:SlotDefinition ;
+    rdfs:label "z_resolution" ;
+    skos:definition "The resolution (length / pixel) in along the z axis (numerical value part)." ;
+    skos:inScheme <https://w3id.org/my-org/ansrs-schema> .
+
+ANSRS:z_size a owl:ObjectProperty,
+        linkml:SlotDefinition ;
+    rdfs:label "z_size" ;
+    skos:definition "The number of pixels/voxels (size) along the y axis." ;
+    skos:inScheme <https://w3id.org/my-org/ansrs-schema> .
+
+ANSRS:AnatomicalSpace a owl:Class,
+        linkml:ClassDefinition ;
+    rdfs:label "AnatomicalSpace" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty ANSRS:revision_of ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom ANSRS:ImageDataset ;
+            owl:onProperty ANSRS:measures ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom ANSRS:AnatomicalSpace ;
+            owl:onProperty ANSRS:revision_of ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty ANSRS:measures ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty ANSRS:measures ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty ANSRS:revision_of ],
+        ANSRS:VersionedNamedThing ;
+    skos:definition "An anatomical space is versioned release of a mathematical space with a defined mapping  between the anatomical axes and the mathematical axes. An anatomical space may be defined by  a reference image chosen as the biological reference for an anatomical structure of interest  derived from a single or multiple specimens (ref: ILX:0777106, RRID:SCR_023499)" ;
+    skos:inScheme <https://w3id.org/my-org/ansrs-schema> .
+
+ANSRS:ParcellationTerminology a owl:Class,
+        linkml:ClassDefinition ;
+    rdfs:label "ParcellationTerminology" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty ANSRS:revision_of ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty ANSRS:revision_of ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom ANSRS:ParcellationTerminology ;
+            owl:onProperty ANSRS:revision_of ],
+        ANSRS:VersionedNamedThing ;
+    skos:definition "A parcellation terminology is a versioned release set of terms that can be used to label  annotations in an atlas, providing human readability and context and allowing communication  about brain locations and structural properties. Typically, a terminology is a set of  descriptive anatomical terms following a specific naming convention and/or approach to  organization scheme. The terminology may be a flat list of controlled vocabulary, a taxonomy  and partonomy, or an ontology (ref: ILX:0777107, RRID:SCR_023499)" ;
+    skos:inScheme <https://w3id.org/my-org/ansrs-schema> .
+
+ANSRS:ordinal a owl:ObjectProperty,
+        linkml:SlotDefinition .
+
+ANSRS:subject_parcellation_term a owl:ObjectProperty,
+        linkml:SlotDefinition .
+
+ANSRS:DISTANCEUNIT a owl:Class,
+        linkml:EnumDefinition ;
+    owl:unionOf ( <https://w3id.org/my-org/ansrs-schema/DISTANCEUNIT#mm> <https://w3id.org/my-org/ansrs-schema/DISTANCEUNIT#um> <https://w3id.org/my-org/ansrs-schema/DISTANCEUNIT#m> ) ;
+    linkml:permissible_values <https://w3id.org/my-org/ansrs-schema/DISTANCEUNIT#m>,
+        <https://w3id.org/my-org/ansrs-schema/DISTANCEUNIT#mm>,
+        <https://w3id.org/my-org/ansrs-schema/DISTANCEUNIT#um> .
+
+ANSRS:VersionedNamedThing a owl:Class,
+        linkml:ClassDefinition ;
+    rdfs:label "VersionedNamedThing" ;
+    rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty ANSRS:version ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom ANSRS:VersionedNamedThing ;
+            owl:onProperty ANSRS:revision_of ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom linkml:String ;
+            owl:onProperty ANSRS:version ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty ANSRS:revision_of ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty ANSRS:revision_of ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty ANSRS:version ],
+        ANSRS:NamedThing ;
+    skos:definition "Core base entity for ANSRS schema representing an versioned named thing." ;
+    skos:inScheme <https://w3id.org/my-org/core> .
+
+ANSRS:ANATOMICALDIRECTION a owl:Class,
+        linkml:EnumDefinition ;
+    owl:unionOf ( <https://w3id.org/my-org/ansrs-schema/ANATOMICALDIRECTION#left_to_right> <https://w3id.org/my-org/ansrs-schema/ANATOMICALDIRECTION#posterior_to_anterior> <https://w3id.org/my-org/ansrs-schema/ANATOMICALDIRECTION#inferior_to_superior> ) ;
+    linkml:permissible_values <https://w3id.org/my-org/ansrs-schema/ANATOMICALDIRECTION#inferior_to_superior>,
+        <https://w3id.org/my-org/ansrs-schema/ANATOMICALDIRECTION#left_to_right>,
+        <https://w3id.org/my-org/ansrs-schema/ANATOMICALDIRECTION#posterior_to_anterior> .
+
+ANSRS:revision_of a owl:ObjectProperty,
+        linkml:SlotDefinition ;
+    rdfs:label "revision_of" ;
+    rdfs:range ANSRS:VersionedNamedThing ;
+    skos:inScheme <https://w3id.org/my-org/core> .
+
+<https://w3id.org/my-org/ansrs-schema> a owl:Ontology ;
+    rdfs:label "ansrs-schema" ;
+    dcterms:license "MIT" ;
+    dcterms:title "ANSRS schema" ;
+    rdfs:seeAlso <https://my-org.github.io/ansrs-schema> ;
+    skos:definition "Schema for ANSRS" .
+
