@@ -231,7 +231,7 @@
 
       ParcellationAtlas : revision_of
 
-          ParcellationAtlas --&gt; AnatomicalSpace : revision_of
+          ParcellationAtlas --&gt; ParcellationAtlas : revision_of
 
       ParcellationAtlas : specialization_of
 
@@ -294,7 +294,7 @@
 </tr>
 <tr>
 <td><a href="../revision_of/">revision_of</a></td>
-<td>0..1 <br/> <a href="../AnatomicalSpace/">AnatomicalSpace</a></td>
+<td>0..1 <br/> <a href="./">ParcellationAtlas</a></td>
 <td></td>
 <td><a href="../VersionedNamedThing/">VersionedNamedThing</a></td>
 </tr>
@@ -332,6 +332,12 @@
 <tr>
 <td><a href="./">ParcellationAtlas</a></td>
 <td><a href="../specialization_of/">specialization_of</a></td>
+<td>range</td>
+<td><a href="./">ParcellationAtlas</a></td>
+</tr>
+<tr>
+<td><a href="./">ParcellationAtlas</a></td>
+<td><a href="../revision_of/">revision_of</a></td>
 <td>range</td>
 <td><a href="./">ParcellationAtlas</a></td>
 </tr>
@@ -382,7 +388,7 @@ slot_usage:
     name: revision_of
     domain_of:
     - VersionedNamedThing
-    range: AnatomicalSpace
+    range: ParcellationAtlas
 attributes:
   has_anatomical_space:
     name: has_anatomical_space
@@ -436,7 +442,7 @@ slot_usage:
     name: revision_of
     domain_of:
     - VersionedNamedThing
-    range: AnatomicalSpace
+    range: ParcellationAtlas
 attributes:
   has_anatomical_space:
     name: has_anatomical_space
@@ -502,7 +508,7 @@ attributes:
     owner: ParcellationAtlas
     domain_of:
     - VersionedNamedThing
-    range: AnatomicalSpace
+    range: ParcellationAtlas
   id:
     name: id
     from_schema: https://w3id.org/my-org/ansrs-schema
