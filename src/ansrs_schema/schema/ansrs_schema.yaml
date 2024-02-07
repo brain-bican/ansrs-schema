@@ -190,7 +190,7 @@ classes:
         required: true
     slot_usage:
       revision_of:
-        range: ParcellationTerminology
+        range: ParcellationColorScheme
 
   ParcellationColorAssignment:
     description: >-
@@ -230,7 +230,7 @@ classes:
         required: true
     slot_usage:
       revision_of:
-        range: ParcellationTerminology
+        range: AnatomicalAnnotationSet
 
   ParcellationAnnotation:
     description: >-
