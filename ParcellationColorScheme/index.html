@@ -219,7 +219,7 @@
 
       ParcellationColorScheme : revision_of
 
-          ParcellationColorScheme --&gt; ParcellationTerminology : revision_of
+          ParcellationColorScheme --&gt; ParcellationColorScheme : revision_of
 
       ParcellationColorScheme : subject_parcellation_terminology
 
@@ -264,7 +264,7 @@
 </tr>
 <tr>
 <td><a href="../revision_of/">revision_of</a></td>
-<td>0..1 <br/> <a href="../ParcellationTerminology/">ParcellationTerminology</a></td>
+<td>0..1 <br/> <a href="./">ParcellationColorScheme</a></td>
 <td></td>
 <td><a href="../VersionedNamedThing/">VersionedNamedThing</a></td>
 </tr>
@@ -299,6 +299,12 @@
 </tr>
 </thead>
 <tbody>
+<tr>
+<td><a href="./">ParcellationColorScheme</a></td>
+<td><a href="../revision_of/">revision_of</a></td>
+<td>range</td>
+<td><a href="./">ParcellationColorScheme</a></td>
+</tr>
 <tr>
 <td><a href="../ParcellationColorAssignment/">ParcellationColorAssignment</a></td>
 <td><a href="../part_of_parcellation_color_scheme/">part_of_parcellation_color_scheme</a></td>
@@ -349,7 +355,7 @@ slot_usage:
     name: revision_of
     domain_of:
     - VersionedNamedThing
-    range: ParcellationTerminology
+    range: ParcellationColorScheme
 attributes:
   subject_parcellation_terminology:
     name: subject_parcellation_terminology
@@ -378,7 +384,7 @@ slot_usage:
     name: revision_of
     domain_of:
     - VersionedNamedThing
-    range: ParcellationTerminology
+    range: ParcellationColorScheme
 attributes:
   subject_parcellation_terminology:
     name: subject_parcellation_terminology
@@ -410,7 +416,7 @@ attributes:
     owner: ParcellationColorScheme
     domain_of:
     - VersionedNamedThing
-    range: ParcellationTerminology
+    range: ParcellationColorScheme
   id:
     name: id
     from_schema: https://w3id.org/my-org/ansrs-schema

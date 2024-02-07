@@ -223,7 +223,7 @@
 
       AnatomicalAnnotationSet : revision_of
 
-          AnatomicalAnnotationSet --&gt; ParcellationTerminology : revision_of
+          AnatomicalAnnotationSet --&gt; AnatomicalAnnotationSet : revision_of
 
       AnatomicalAnnotationSet : version
 
@@ -264,7 +264,7 @@
 </tr>
 <tr>
 <td><a href="../revision_of/">revision_of</a></td>
-<td>0..1 <br/> <a href="../ParcellationTerminology/">ParcellationTerminology</a></td>
+<td>0..1 <br/> <a href="./">AnatomicalAnnotationSet</a></td>
 <td></td>
 <td><a href="../VersionedNamedThing/">VersionedNamedThing</a></td>
 </tr>
@@ -299,6 +299,12 @@
 </tr>
 </thead>
 <tbody>
+<tr>
+<td><a href="./">AnatomicalAnnotationSet</a></td>
+<td><a href="../revision_of/">revision_of</a></td>
+<td>range</td>
+<td><a href="./">AnatomicalAnnotationSet</a></td>
+</tr>
 <tr>
 <td><a href="../ParcellationAnnotation/">ParcellationAnnotation</a></td>
 <td><a href="../part_of_anatomical_annotation_set/">part_of_anatomical_annotation_set</a></td>
@@ -355,7 +361,7 @@ slot_usage:
     name: revision_of
     domain_of:
     - VersionedNamedThing
-    range: ParcellationTerminology
+    range: AnatomicalAnnotationSet
 attributes:
   parameterizes:
     name: parameterizes
@@ -384,7 +390,7 @@ slot_usage:
     name: revision_of
     domain_of:
     - VersionedNamedThing
-    range: ParcellationTerminology
+    range: AnatomicalAnnotationSet
 attributes:
   parameterizes:
     name: parameterizes
@@ -416,7 +422,7 @@ attributes:
     owner: AnatomicalAnnotationSet
     domain_of:
     - VersionedNamedThing
-    range: ParcellationTerminology
+    range: AnatomicalAnnotationSet
   id:
     name: id
     from_schema: https://w3id.org/my-org/ansrs-schema
