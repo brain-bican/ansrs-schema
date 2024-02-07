@@ -304,16 +304,15 @@ classes:
           version release of.
     slot_usage:
       revision_of:
-        range: AnatomicalSpace
+        range: ParcellationAtlas
 
 enums:
   ANATOMICAL_DIRECTION:
+    description: >-
+      A controlled vocabulary term defining axis direction in terms of anatomical direction.
     permissible_values:
       left_to_right:
         title: left-to-right
-        description: >-
-          A controlled vocabulary term defining the x axis direction in terms of 
-          anatomical direction.
       posterior_to_anterior:
         title: posterior-to-anterior
       inferior_to_superior:
